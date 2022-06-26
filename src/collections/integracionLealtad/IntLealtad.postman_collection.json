@@ -1,0 +1,4738 @@
+{
+	"info": {
+		"_postman_id": "1353dca9-749c-4fd7-afd8-e3ab19574060",
+		"name": "Integracion Lealtad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MS",
+			"item": [
+				{
+					"name": "productos",
+					"item": [
+						{
+							"name": "UAT",
+							"item": [
+								{
+									"name": "MS-obtenerDatosProductoxID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"if ( pm.environment.get(\"ddtEnabled\") == true){\r",
+													"    var producto = pm.environment.get(\"productoID\");\r",
+													"    var descripcionProductoInResponse = pm.environment.get(\"descripcionProducto\");\r",
+													"\r",
+													"    pm.test(\"Verify descripcion llamando a la API con producto: \"+producto+\".  Descripcion de respuesta debe ser: \"+descripcionProductoInResponse, function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.data.opciones[0].payload).to.eql(resultado.toString());\r",
+													"    });\r",
+													"\r",
+													"    pm.test(\"Verify idProducto llamando a la API con producto: \"+producto+\".  idProducto de respuesta debe ser: \"+descripcionProductoInResponse, function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.data.opciones[0].payload).to.eql(resultado.toString());\r",
+													"    });\r",
+													"}\r",
+													"\r",
+													"//validar esquema\r",
+													"var schema = {\r",
+													"  \"type\": \"object\",\r",
+													"  \"properties\": {\r",
+													"    \"C6826\": { \"type\": \"string\" },\r",
+													"    \"C6825\": { \"type\": \"string\" },\r",
+													"    \"tipo\": { \"type\": \"string\" },\r",
+													"    \"estado\": { \"type\": [\"string\", \"null\"] },\r",
+													"    \"proObtDiasGraciaICMora\": { \"type\": \"string\" },\r",
+													"    \"C6268\": { \"type\": [\"string\", \"null\"] },\r",
+													"    \"subtipoGarantia\": { \"type\": \"integer\" },\r",
+													"    \"C6267\": { \"type\": \"string\" },\r",
+													"    \"proObtDiasGraciaMora\": { \"type\": \"string\" },\r",
+													"    \"C6269\": { \"type\": \"string\" },\r",
+													"    \"C6824\": { \"type\": \"integer\" },\r",
+													"    \"cambioRubro\": { \"type\": \"integer\" },\r",
+													"    \"C6271\": { \"type\": \"integer\" },\r",
+													"    \"C8175\": { \"type\": \"integer\" },\r",
+													"    \"C6273\": { \"type\": \"integer\" },\r",
+													"    \"opCancelacion\": { \"type\": \"integer\" },\r",
+													"    \"C6272\": { \"type\": \"integer\" },\r",
+													"    \"C16617\": { \"type\": \"string\" },\r",
+													"    \"C6274\": { \"type\": \"string\" },\r",
+													"    \"C16618\": { \"type\": \"integer\" },\r",
+													"    \"C6277\": { \"type\": \"integer\" },\r",
+													"    \"C3361\": { \"type\": [\"string\", \"null\"] },\r",
+													"    \"algoritmoPago\": { \"type\": \"integer\" },\r",
+													"    \"tipoCredito\": { \"type\": \"string\" },\r",
+													"    \"moraEntramos\": { \"type\": \"string\" },\r",
+													"    \"cuotasNoBonif\": { \"type\": \"integer\" },\r",
+													"    \"hisCancela\": { \"type\": \"integer\" },\r",
+													"    \"C6279\": { \"type\": \"string\" },\r",
+													"    \"C6278\": { \"type\": \"integer\" },\r",
+													"    \"hisPeriodoDepCancelados\": { \"type\": \"integer\" },\r",
+													"    \"C39997\": { \"type\": \"integer\" },\r",
+													"    \"topeDiasAtraso\": { \"type\": [\"integer\", \"null\"] },\r",
+													"    \"C6283\": { \"type\": \"integer\" },\r",
+													"    \"C6288\": { \"type\": \"integer\" },\r",
+													"    \"C6287\": { \"type\": \"integer\" },\r",
+													"    \"hisPeriodoCancelacion\": { \"type\": \"integer\" },\r",
+													"    \"topeDiasAdelanto\": { \"type\": [\"integer\", \"null\"] },\r",
+													"    \"prodComercial\": { \"type\": \"integer\" },\r",
+													"    \"C6805\": { \"type\": \"string\" },\r",
+													"    \"hisDepura\": { \"type\": \"integer\" },\r",
+													"    \"diasGraciaCobroICMora\": { \"type\": \"integer\" },\r",
+													"    \"tipoRecuperacion\": { \"type\":[\"string\", \"null\"] },\r",
+													"    \"C6800\": { \"type\": \"string\" },\r",
+													"    \"proObtDiasGraciaMultaMora\": { \"type\": \"string\" },\r",
+													"    \"C6251\": { \"type\": \"string\" },\r",
+													"    \"calculoICMora\": { \"type\": \"string\" },\r",
+													"    \"C6253\": { \"type\": \"string\" },\r",
+													"    \"C6252\": { \"type\": \"integer\" },\r",
+													"    \"C6255\": { \"type\": \"integer\" },\r",
+													"    \"codProductoComercial\": { \"type\": \"integer\" },\r",
+													"    \"C6254\": { \"type\": \"string\" },\r",
+													"    \"tipoDPF\": { \"type\": \"string\" },\r",
+													"    \"tipoGarantia\": { \"type\": \"integer\" },\r",
+													"    \"evaluaDeuda\": { \"type\": \"string\" },\r",
+													"    \"C6257\": { \"type\": \"string\" },\r",
+													"    \"C6256\": { \"type\": \"string\" },\r",
+													"    \"C6259\": { \"type\": \"string\" },\r",
+													"    \"C6258\": { \"type\": \"string\" },\r",
+													"    \"C6260\": { \"type\": \"string\" },\r",
+													"    \"C6262\": { \"type\": \"string\" },\r",
+													"    \"proDiasGraciaMultaMora\": { \"type\": \"integer\" },\r",
+													"    \"C6261\": { \"type\": \"string\" },\r",
+													"    \"impuestoTasa\": { \"type\": \"integer\" },\r",
+													"    \"C6264\": { \"type\": \"integer\" },\r",
+													"    \"C6263\": { \"type\": \"string\" },\r",
+													"    \"tipoDesgravamen\": { \"type\": [\"string\", \"null\"] },\r",
+													"    \"C6265\": { \"type\": \"string\" },\r",
+													"    \"hisPeriodoDepEnvejecimiento\": { \"type\": \"integer\" },\r",
+													"    \"idProducto\": { \"type\": \"integer\" },\r",
+													"    \"periodoLegalEstcta\": { \"type\": \"string\" }\r",
+													"  },\r",
+													"  \"required\": [\r",
+													"      \"C6826\",\r",
+													"  \"C6825\",\r",
+													"  \"tipo\",\r",
+													"  \"estado\",\r",
+													"  \"proObtDiasGraciaICMora\",\r",
+													"  \"C6268\",\r",
+													"  \"subtipoGarantia\",\r",
+													"  \"C6267\",\r",
+													"  \"proObtDiasGraciaMora\",\r",
+													"  \"C6269\",\r",
+													"  \"C6824\",\r",
+													"  \"cambioRubro\",\r",
+													"  \"C6271\",\r",
+													"  \"C8175\",\r",
+													"  \"C6273\",\r",
+													"  \"opCancelacion\",\r",
+													"  \"C6272\",\r",
+													"  \"C16617\",\r",
+													"  \"C6274\",\r",
+													"  \"C16618\",\r",
+													"  \"C6277\",\r",
+													"  \"C3361\",\r",
+													"  \"algoritmoPago\",\r",
+													"  \"tipoCredito\",\r",
+													"  \"moraEntramos\",\r",
+													"  \"cuotasNoBonif\",\r",
+													"  \"hisCancela\",\r",
+													"  \"C6279\",\r",
+													"  \"C6278\",\r",
+													"  \"hisPeriodoDepCancelados\",\r",
+													"  \"C39997\",\r",
+													"  \"topeDiasAtraso\",\r",
+													"  \"C6283\",\r",
+													"  \"C6288\",\r",
+													"  \"C6287\",\r",
+													"  \"hisPeriodoCancelacion\",\r",
+													"  \"topeDiasAdelanto\",\r",
+													"  \"prodComercial\",\r",
+													"  \"C6805\",\r",
+													"  \"hisDepura\",\r",
+													"  \"diasGraciaCobroICMora\",\r",
+													"  \"tipoRecuperacion\",\r",
+													"  \"C6800\",\r",
+													"  \"proObtDiasGraciaMultaMora\",\r",
+													"  \"C6251\",\r",
+													"  \"calculoICMora\",\r",
+													"  \"C6253\",\r",
+													"  \"C6252\",\r",
+													"  \"C6255\",\r",
+													"  \"codProductoComercial\",\r",
+													"  \"C6254\",\r",
+													"  \"tipoDPF\",\r",
+													"  \"tipoGarantia\",\r",
+													"  \"evaluaDeuda\",\r",
+													"  \"C6257\",\r",
+													"  \"C6256\",\r",
+													"  \"C6259\",\r",
+													"  \"C6258\",\r",
+													"  \"C6260\",\r",
+													"  \"C6262\",\r",
+													"  \"proDiasGraciaMultaMora\",\r",
+													"  \"C6261\",\r",
+													"  \"impuestoTasa\",\r",
+													"  \"C6264\",\r",
+													"  \"C6263\",\r",
+													"  \"tipoDesgravamen\",\r",
+													"  \"C6265\",\r",
+													"  \"hisPeriodoDepEnvejecimiento\",\r",
+													"  \"idProducto\",\r",
+													"  \"periodoLegalEstcta\"\r",
+													"      ],\r",
+													"  \"additionalProperties\": false\r",
+													"};\r",
+													"\r",
+													"\r",
+													"pm.test('Schema is valid', function () {\r",
+													"    pm.response.to.have.jsonSchema(schema);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"productoID\", data.productoID);\r",
+													"pm.environment.set(\"descripcionProducto\", data.descripcionProducto);\r",
+													"\r",
+													"var list = pm.info.iterationCount;\r",
+													"console.log(list);\r",
+													"pm.environment.set(\"Total records: \", list);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "systems1",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "top1",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "topaz-channel",
+												"type": "text",
+												"value": "1"
+											},
+											{
+												"key": "topaz-user",
+												"type": "text",
+												"value": "top1",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{MS_URL_LOCAL}}/productos/obtenerDatosProductoxID/88031",
+											"host": [
+												"{{MS_URL_LOCAL}}"
+											],
+											"path": [
+												"productos",
+												"obtenerDatosProductoxID",
+												"88031"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "MS-obtenerDatosProductoxID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-user",
+										"type": "text",
+										"value": "top1",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/productos/obtenerDatosProductoxID/88031",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"productos",
+										"obtenerDatosProductoxID",
+										"88031"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "saldos",
+					"item": [
+						{
+							"name": "MS-obtenerBloqueosXJTSOID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"//validar idProducto, from csv\r",
+											"\r",
+											"//validar nombre o descripcion del producto, from csv\r",
+											"\r",
+											"//validar esquema\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-user",
+										"type": "text",
+										"value": "top1",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/saldos/obtenerBloqueosXJTSOID/1573657",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"saldos",
+										"obtenerBloqueosXJTSOID",
+										"1573657"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "firmas",
+					"item": [
+						{
+							"name": "MS-existeCombinacion",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/firmas/existeCombinacion?cuenta=1310412499&importe=500",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"existeCombinacion"
+									],
+									"query": [
+										{
+											"key": "cuenta",
+											"value": "1310412499"
+										},
+										{
+											"key": "importe",
+											"value": "500"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-obtenerFirmasPorCuenta",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/firmas/obtenerFirmasPorCuenta/1041063560",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"obtenerFirmasPorCuenta",
+										"1041063560"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-obtenerNroFirmas",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/firmas/obtenerNroFirmas?cuenta=1041063560&numeroPersona=50123",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"obtenerNroFirmas"
+									],
+									"query": [
+										{
+											"key": "cuenta",
+											"value": "1041063560"
+										},
+										{
+											"key": "numeroPersona",
+											"value": "50123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-cuentasPorFirmante",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Verify person has more than 1 accounts\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.greaterThan(1);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"array\",\r",
+											"  \"items\": [\r",
+											"      {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\":{\r",
+											"        \"jtsOId\": { \"type\": \"integer\" },\r",
+											"        \"cuenta\": { \"type\": \"integer\" },\r",
+											"        },\r",
+											"        \"required\": [\"jtsOId\", \"cuenta\"],\r",
+											"  }\r",
+											"  ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/firmas/cuentasPorFirmante/805437",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"cuentasPorFirmante",
+										"805437"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lealtad",
+					"item": [
+						{
+							"name": "MS-getSuscripcionesPorPersona",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/getSuscripcionPorProgramaPorPersona?codigoCliente=11842742&codigoPrograma=1",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getSuscripcionPorProgramaPorPersona"
+									],
+									"query": [
+										{
+											"key": "codigoCliente",
+											"value": "11842742"
+										},
+										{
+											"key": "codigoPrograma",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-postSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idPrograma\": 2,\r\n  \"estado\": \"A\",\r\n  \"codPersonaCliente\": 11842742,\r\n  \"fechaInicio\": \"2022-06-02\",\r\n  \"tipoPersonaCliente\": \"C\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/postSuscrito",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"postSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-putSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"estado\": \"I\",\r\n    \"idSuscrito\": 40\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/putSuscrito",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"putSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-getCabeceraComprobanteXid - POSITIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"titulo2\": { \"type\": \"string\" },\r",
+											"        \"titulo1\": { \"type\": \"string\" },\r",
+											"        \"nrodoc\": { \"type\": \"string\" },\r",
+											"        \"codsucursal\": { \"type\": \"integer\" },\r",
+											"        \"titulo3\": { \"type\": \"string\" },\r",
+											"        \"impliteral\": { \"type\": \"string\" },\r",
+											"        \"codcliente\": { \"type\": \"integer\" },\r",
+											"        \"codmoneda\": { \"type\": \"integer\" },\r",
+											"        \"detalle3\": { \"type\": \"string\" },\r",
+											"        \"fechaproceso\": { \"type\": \"string\" },\r",
+											"        \"nropersona\": { \"type\": \"integer\" },\r",
+											"        \"detalle4\": { \"type\": \"string\" },\r",
+											"        \"detalle1\": { \"type\": \"string\" },\r",
+											"        \"detalle2\": { \"type\": \"string\" },\r",
+											"        \"nrocuenta\": { \"type\": \"integer\" },\r",
+											"        \"direccion\": { \"type\": \"string\" },\r",
+											"        \"codtipodoc\": { \"type\": \"string\" },\r",
+											"        \"asiento\": { \"type\": \"integer\" },\r",
+											"        \"horaproceso\": { \"type\": \"string\" },\r",
+											"        \"importe\": { \"type\": \"integer\" },\r",
+											"        \"nombrepersona\": { \"type\": \"string\" },\r",
+											"        \"abmoneda\": { \"type\": \"string\" },\r",
+											"        \"sucursal\": { \"type\": \"integer\" },\r",
+											"        \"usuario\": { \"type\": \"string\" },\r",
+											"        \"identificador\": { \"type\": \"integer\" },\r",
+											"        \"codextensiondoc\": { \"type\": [\"string\", \"null\"] },\r",
+											"        \"codoperacion\": { \"type\": \"integer\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"titulo2\",\r",
+											"            \"titulo1\",\r",
+											"            \"nrodoc\",\r",
+											"            \"codsucursal\",\r",
+											"            \"titulo3\",\r",
+											"            \"impliteral\",\r",
+											"            \"codcliente\",\r",
+											"            \"codmoneda\",\r",
+											"            \"detalle3\",\r",
+											"            \"fechaproceso\",\r",
+											"            \"nropersona\",\r",
+											"            \"detalle4\",\r",
+											"            \"detalle1\",\r",
+											"            \"detalle2\",\r",
+											"            \"nrocuenta\",\r",
+											"            \"direccion\",\r",
+											"            \"codtipodoc\",\r",
+											"            \"asiento\",\r",
+											"            \"horaproceso\",\r",
+											"            \"importe\",\r",
+											"            \"nombrepersona\",\r",
+											"            \"abmoneda\",\r",
+											"            \"sucursal\",\r",
+											"            \"usuario\",\r",
+											"            \"identificador\",\r",
+											"            \"codextensiondoc\",\r",
+											"            \"codoperacion\"\r",
+											"                        ],\r",
+											"                        \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/getCabeceraComprobanteXid/1",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getCabeceraComprobanteXid",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-getCabeceraComprobanteXid - NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"statusCode\": { \"type\": \"integer\" },\r",
+											"        \"message\": {\"type\": \"array\"},\r",
+											"        \"error\": { \"type\": \"string\"}\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"statusCode\",\r",
+											"            \"message\",\r",
+											"            \"error\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/getCabeceraComprobanteXid/12345",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getCabeceraComprobanteXid",
+										"12345"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-getDetalleComprobanteXid - POSITIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"array\",\r",
+											"  \"items\": [\r",
+											"      {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\":{\r",
+											"        \"abmoneda\": { \"type\": \"string\" },\r",
+											"        \"codmoneda\": { \"type\": \"integer\" },\r",
+											"        \"concepto\": { \"type\": \"string\" },\r",
+											"        \"idcomprobante\": { \"type\": \"integer\" },\r",
+											"        \"importe\": { \"type\": \"integer\" },\r",
+											"        \"ordinal\": { \"type\": \"integer\" },\r",
+											"        \"tc\": { \"type\": \"integer\" },\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"abmoneda\",\r",
+											"            \"codmoneda\",\r",
+											"            \"concepto\",\r",
+											"            \"idcomprobante\",\r",
+											"            \"importe\",\r",
+											"            \"ordinal\",\r",
+											"            \"tc\"\r",
+											"            ],\r",
+											"            \"additionalProperties\": false\r",
+											"  }\r",
+											"  ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sda\":\"asdjasdhaksdhaskjd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/getDetalleComprobanteXid/1",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getDetalleComprobanteXid",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "MS-getDetalleComprobanteXid - NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"statusCode\": { \"type\": \"integer\" },\r",
+											"        \"message\": {\"type\": \"array\"},\r",
+											"        \"error\": { \"type\": \"string\"}\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"statusCode\",\r",
+											"            \"message\",\r",
+											"            \"error\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sda\":\"asdjasdhaksdhaskjd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MS_URL_LOCAL}}/lealtad/getDetalleComprobanteXid/1234",
+									"host": [
+										"{{MS_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getDetalleComprobanteXid",
+										"1234"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "FACADE",
+			"item": [
+				{
+					"name": "productos",
+					"item": [
+						{
+							"name": "FACADE-obtenerDatosProductoxID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"//validar esquema\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"    \"C6826\": { \"type\": \"string\" },\r",
+											"    \"C6825\": { \"type\": \"string\" },\r",
+											"    \"tipo\": { \"type\": \"string\" },\r",
+											"    \"estado\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"proObtDiasGraciaICMora\": { \"type\": \"string\" },\r",
+											"    \"C6268\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"subtipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"C6267\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMora\": { \"type\": \"string\" },\r",
+											"    \"C6269\": { \"type\": \"string\" },\r",
+											"    \"C6824\": { \"type\": \"integer\" },\r",
+											"    \"cambioRubro\": { \"type\": \"integer\" },\r",
+											"    \"C6271\": { \"type\": \"integer\" },\r",
+											"    \"C8175\": { \"type\": \"integer\" },\r",
+											"    \"C6273\": { \"type\": \"integer\" },\r",
+											"    \"opCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"C6272\": { \"type\": \"integer\" },\r",
+											"    \"C16617\": { \"type\": \"string\" },\r",
+											"    \"C6274\": { \"type\": \"string\" },\r",
+											"    \"C16618\": { \"type\": \"integer\" },\r",
+											"    \"C6277\": { \"type\": \"integer\" },\r",
+											"    \"C3361\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"algoritmoPago\": { \"type\": \"integer\" },\r",
+											"    \"tipoCredito\": { \"type\": \"string\" },\r",
+											"    \"moraEntramos\": { \"type\": \"string\" },\r",
+											"    \"cuotasNoBonif\": { \"type\": \"integer\" },\r",
+											"    \"hisCancela\": { \"type\": \"integer\" },\r",
+											"    \"C6279\": { \"type\": \"string\" },\r",
+											"    \"C6278\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoDepCancelados\": { \"type\": \"integer\" },\r",
+											"    \"C39997\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAtraso\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"C6283\": { \"type\": \"integer\" },\r",
+											"    \"C6288\": { \"type\": \"integer\" },\r",
+											"    \"C6287\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAdelanto\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"prodComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6805\": { \"type\": \"string\" },\r",
+											"    \"hisDepura\": { \"type\": \"integer\" },\r",
+											"    \"diasGraciaCobroICMora\": { \"type\": \"integer\" },\r",
+											"    \"tipoRecuperacion\": { \"type\":[\"string\", \"null\"] },\r",
+											"    \"C6800\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMultaMora\": { \"type\": \"string\" },\r",
+											"    \"C6251\": { \"type\": \"string\" },\r",
+											"    \"calculoICMora\": { \"type\": \"string\" },\r",
+											"    \"C6253\": { \"type\": \"string\" },\r",
+											"    \"C6252\": { \"type\": \"integer\" },\r",
+											"    \"C6255\": { \"type\": \"integer\" },\r",
+											"    \"codProductoComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6254\": { \"type\": \"string\" },\r",
+											"    \"tipoDPF\": { \"type\": \"string\" },\r",
+											"    \"tipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"evaluaDeuda\": { \"type\": \"string\" },\r",
+											"    \"C6257\": { \"type\": \"string\" },\r",
+											"    \"C6256\": { \"type\": \"string\" },\r",
+											"    \"C6259\": { \"type\": \"string\" },\r",
+											"    \"C6258\": { \"type\": \"string\" },\r",
+											"    \"C6260\": { \"type\": \"string\" },\r",
+											"    \"C6262\": { \"type\": \"string\" },\r",
+											"    \"proDiasGraciaMultaMora\": { \"type\": \"integer\" },\r",
+											"    \"C6261\": { \"type\": \"string\" },\r",
+											"    \"impuestoTasa\": { \"type\": \"integer\" },\r",
+											"    \"C6264\": { \"type\": \"integer\" },\r",
+											"    \"C6263\": { \"type\": \"string\" },\r",
+											"    \"tipoDesgravamen\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"C6265\": { \"type\": \"string\" },\r",
+											"    \"hisPeriodoDepEnvejecimiento\": { \"type\": \"integer\" },\r",
+											"    \"idProducto\": { \"type\": \"integer\" },\r",
+											"    \"periodoLegalEstcta\": { \"type\": \"string\" }\r",
+											"  },\r",
+											"  \"required\": [\r",
+											"      \"C6826\",\r",
+											"  \"C6825\",\r",
+											"  \"tipo\",\r",
+											"  \"estado\",\r",
+											"  \"proObtDiasGraciaICMora\",\r",
+											"  \"C6268\",\r",
+											"  \"subtipoGarantia\",\r",
+											"  \"C6267\",\r",
+											"  \"proObtDiasGraciaMora\",\r",
+											"  \"C6269\",\r",
+											"  \"C6824\",\r",
+											"  \"cambioRubro\",\r",
+											"  \"C6271\",\r",
+											"  \"C8175\",\r",
+											"  \"C6273\",\r",
+											"  \"opCancelacion\",\r",
+											"  \"C6272\",\r",
+											"  \"C16617\",\r",
+											"  \"C6274\",\r",
+											"  \"C16618\",\r",
+											"  \"C6277\",\r",
+											"  \"C3361\",\r",
+											"  \"algoritmoPago\",\r",
+											"  \"tipoCredito\",\r",
+											"  \"moraEntramos\",\r",
+											"  \"cuotasNoBonif\",\r",
+											"  \"hisCancela\",\r",
+											"  \"C6279\",\r",
+											"  \"C6278\",\r",
+											"  \"hisPeriodoDepCancelados\",\r",
+											"  \"C39997\",\r",
+											"  \"topeDiasAtraso\",\r",
+											"  \"C6283\",\r",
+											"  \"C6288\",\r",
+											"  \"C6287\",\r",
+											"  \"hisPeriodoCancelacion\",\r",
+											"  \"topeDiasAdelanto\",\r",
+											"  \"prodComercial\",\r",
+											"  \"C6805\",\r",
+											"  \"hisDepura\",\r",
+											"  \"diasGraciaCobroICMora\",\r",
+											"  \"tipoRecuperacion\",\r",
+											"  \"C6800\",\r",
+											"  \"proObtDiasGraciaMultaMora\",\r",
+											"  \"C6251\",\r",
+											"  \"calculoICMora\",\r",
+											"  \"C6253\",\r",
+											"  \"C6252\",\r",
+											"  \"C6255\",\r",
+											"  \"codProductoComercial\",\r",
+											"  \"C6254\",\r",
+											"  \"tipoDPF\",\r",
+											"  \"tipoGarantia\",\r",
+											"  \"evaluaDeuda\",\r",
+											"  \"C6257\",\r",
+											"  \"C6256\",\r",
+											"  \"C6259\",\r",
+											"  \"C6258\",\r",
+											"  \"C6260\",\r",
+											"  \"C6262\",\r",
+											"  \"proDiasGraciaMultaMora\",\r",
+											"  \"C6261\",\r",
+											"  \"impuestoTasa\",\r",
+											"  \"C6264\",\r",
+											"  \"C6263\",\r",
+											"  \"tipoDesgravamen\",\r",
+											"  \"C6265\",\r",
+											"  \"hisPeriodoDepEnvejecimiento\",\r",
+											"  \"idProducto\",\r",
+											"  \"periodoLegalEstcta\"\r",
+											"      ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "topaz-user",
+										"value": "top1",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/productos/obtenerDatosProductoxID/88031",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"productos",
+										"obtenerDatosProductoxID",
+										"88031"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "saldos",
+					"item": [
+						{
+							"name": "FACADE-obtenerBloqueosXJTSOID - POSITIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/saldos/obtenerBloqueosXJTSOID/1573657",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"saldos",
+										"obtenerBloqueosXJTSOID",
+										"1573657"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-obtenerDatosCodBloqueoxID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/saldos/obtenerDatosCodBloqueoxID/25",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"saldos",
+										"obtenerDatosCodBloqueoxID",
+										"25"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-obtenerBloqueosXJTSOID - NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"statusCode\": { \"type\": \"integer\" },\r",
+											"        \"message\": {\"type\": \"array\"},\r",
+											"        \"error\": { \"type\": \"string\"}\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"statusCode\",\r",
+											"            \"message\",\r",
+											"            \"error\"\r",
+											"        ],\r",
+											"        \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/saldos/obtenerBloqueosXJTSOID/asd",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"saldos",
+										"obtenerBloqueosXJTSOID",
+										"asd"
+									]
+								},
+								"description": "Wrong data type in path"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "firmas",
+					"item": [
+						{
+							"name": "FACADE-existeCombinacion",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/firmas/existeCombinacion?cuenta=1310412499&importe=500",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"existeCombinacion"
+									],
+									"query": [
+										{
+											"key": "cuenta",
+											"value": "1310412499"
+										},
+										{
+											"key": "importe",
+											"value": "500"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-obtenerFirmasPorCuenta",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/firmas/obtenerFirmasPorCuenta/1310412499",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"obtenerFirmasPorCuenta",
+										"1310412499"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-obtenerNroFirmas",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/firmas/obtenerNroFirmas?cuenta=1041063560&numeroPersona=50123",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"obtenerNroFirmas"
+									],
+									"query": [
+										{
+											"key": "cuenta",
+											"value": "1041063560"
+										},
+										{
+											"key": "numeroPersona",
+											"value": "50123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-cuentasPorFirmante",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var schema = {\r",
+											"  \"type\": \"array\",\r",
+											"  \"items\": [\r",
+											"      {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\":{\r",
+											"        \"jtsOId\": { \"type\": \"integer\" },\r",
+											"        \"cuenta\": { \"type\": \"integer\" },\r",
+											"        },\r",
+											"        \"required\": [\"jtsOId\", \"cuenta\"],\r",
+											"  }\r",
+											"  ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/firmas/cuentasPorFirmante/805437",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"firmas",
+										"cuentasPorFirmante",
+										"805437"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lealtad",
+					"item": [
+						{
+							"name": "FACADE-getSuscripcionesPorPersona",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/getSuscripcionPorProgramaPorPersona?codigoCliente=11842742&codigoPrograma=1",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getSuscripcionPorProgramaPorPersona"
+									],
+									"query": [
+										{
+											"key": "codigoCliente",
+											"value": "11842742"
+										},
+										{
+											"key": "codigoPrograma",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-postSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idPrograma\": 2,\r\n  \"estado\": \"A\",\r\n  \"codPersonaCliente\": 1212112,\r\n  \"fechaInicio\": \"2022-05-31\",\r\n  \"tipoPersonaCliente\": \"C\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/postSuscrito",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"postSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-putSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"estado\": \"I\",\r\n    \"idSuscrito\": 40\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/putSuscrito",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"putSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-getCabeceraComprobanteXid - POSITIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"jtsOId\": { \"type\": \"integer\" },\r",
+											"        \"cuenta\": { \"type\": \"integer\" },\r",
+											"        \"titulo2\": { \"type\": \"string\" },\r",
+											"        \"titulo1\": { \"type\": \"string\" },\r",
+											"        \"nrodoc\": { \"type\": \"string\" },\r",
+											"        \"codsucursal\": { \"type\": \"integer\" },\r",
+											"        \"titulo3\": { \"type\": \"string\" },\r",
+											"        \"impliteral\": { \"type\": \"string\" },\r",
+											"        \"codcliente\": { \"type\": \"integer\" },\r",
+											"        \"codmoneda\": { \"type\": \"integer\" },\r",
+											"        \"detalle3\": { \"type\": \"string\" },\r",
+											"        \"fechaproceso\": { \"type\": \"string\" },\r",
+											"        \"nropersona\": { \"type\": \"integer\" },\r",
+											"        \"detalle4\": { \"type\": \"string\" },\r",
+											"        \"detalle1\": { \"type\": \"string\" },\r",
+											"        \"detalle2\": { \"type\": \"string\" },\r",
+											"        \"nrocuenta\": { \"type\": \"integer\" },\r",
+											"        \"direccion\": { \"type\": \"string\" },\r",
+											"        \"codtipodoc\": { \"type\": \"string\" },\r",
+											"        \"asiento\": { \"type\": \"integer\" },\r",
+											"        \"horaproceso\": { \"type\": \"string\" },\r",
+											"        \"importe\": { \"type\": \"integer\" },\r",
+											"        \"nombrepersona\": { \"type\": \"string\" },\r",
+											"        \"abmoneda\": { \"type\": \"string\" },\r",
+											"        \"sucursal\": { \"type\": \"integer\" },\r",
+											"        \"usuario\": { \"type\": \"string\" },\r",
+											"        \"identificador\": { \"type\": \"integer\" },\r",
+											"        \"codextensiondoc\": { \"type\": [\"string\", \"null\"] },\r",
+											"        \"codoperacion\": { \"type\": \"integer\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"titulo2\",\r",
+											"            \"titulo1\",\r",
+											"            \"nrodoc\",\r",
+											"            \"codsucursal\",\r",
+											"            \"titulo3\",\r",
+											"            \"impliteral\",\r",
+											"            \"codcliente\",\r",
+											"            \"codmoneda\",\r",
+											"            \"detalle3\",\r",
+											"            \"fechaproceso\",\r",
+											"            \"nropersona\",\r",
+											"            \"detalle4\",\r",
+											"            \"detalle1\",\r",
+											"            \"detalle2\",\r",
+											"            \"nrocuenta\",\r",
+											"            \"direccion\",\r",
+											"            \"codtipodoc\",\r",
+											"            \"asiento\",\r",
+											"            \"horaproceso\",\r",
+											"            \"importe\",\r",
+											"            \"nombrepersona\",\r",
+											"            \"abmoneda\",\r",
+											"            \"sucursal\",\r",
+											"            \"usuario\",\r",
+											"            \"identificador\",\r",
+											"            \"codextensiondoc\",\r",
+											"            \"codoperacion\"\r",
+											"                        ],\r",
+											"                        \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-user",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "topaz-branch",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "topaz-company",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "topaz-channel",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/getCabeceraComprobanteXid/1",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getCabeceraComprobanteXid",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-getCabeceraComprobanteXid - NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"statusCode\": { \"type\": \"integer\" },\r",
+											"        \"message\": {\"type\": \"array\"},\r",
+											"        \"error\": { \"type\": \"string\"}\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"statusCode\",\r",
+											"            \"message\",\r",
+											"            \"error\"\r",
+											"        ],\r",
+											"        \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-user",
+										"type": "text",
+										"value": "1",
+										"disabled": true
+									},
+									{
+										"key": "topaz-branch",
+										"type": "text",
+										"value": "1",
+										"disabled": true
+									},
+									{
+										"key": "topaz-company",
+										"type": "text",
+										"value": "1",
+										"disabled": true
+									},
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/getCabeceraComprobanteXid/a",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getCabeceraComprobanteXid",
+										"a"
+									],
+									"query": [
+										{
+											"key": "idComprobante",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Invalid data in path"
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-getDetalleComprobanteXid",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"array\",\r",
+											"  \"items\": [\r",
+											"      {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\":{\r",
+											"        \"abmoneda\": { \"type\": \"string\" },\r",
+											"        \"codmoneda\": { \"type\": \"integer\" },\r",
+											"        \"concepto\": { \"type\": \"string\" },\r",
+											"        \"idcomprobante\": { \"type\": \"integer\" },\r",
+											"        \"importe\": { \"type\": \"integer\" },\r",
+											"        \"ordinal\": { \"type\": \"integer\" },\r",
+											"        \"tc\": { \"type\": \"integer\" },\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"abmoneda\",\r",
+											"            \"codmoneda\",\r",
+											"            \"concepto\",\r",
+											"            \"idcomprobante\",\r",
+											"            \"importe\",\r",
+											"            \"ordinal\",\r",
+											"            \"tc\"\r",
+											"            ],\r",
+											"            \"additionalProperties\": false\r",
+											"  }\r",
+											"  ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-user",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-branch",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-company",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/getDetalleComprobanteXid/1",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getDetalleComprobanteXid",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FACADE-getDetalleComprobanteXid NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"statusCode\": { \"type\": \"integer\" },\r",
+											"        \"message\": {\"type\": \"array\"},\r",
+											"        \"error\": { \"type\": \"string\"}\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"statusCode\",\r",
+											"            \"message\",\r",
+											"            \"error\"\r",
+											"        ],\r",
+											"        \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "systems1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "top1",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "topaz-user",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-branch",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-company",
+										"type": "text",
+										"value": "1"
+									},
+									{
+										"key": "topaz-channel",
+										"type": "text",
+										"value": "1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{FACADE_URL_LOCAL}}/lealtad/getDetalleComprobanteXid/852",
+									"host": [
+										"{{FACADE_URL_LOCAL}}"
+									],
+									"path": [
+										"lealtad",
+										"getDetalleComprobanteXid",
+										"852"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "QWS",
+			"item": [
+				{
+					"name": "productos",
+					"item": [
+						{
+							"name": "QWS-obtenerDatosProductoxID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"//validar esquema\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"    \"C6826\": { \"type\": \"string\" },\r",
+											"    \"C6825\": { \"type\": \"string\" },\r",
+											"    \"tipo\": { \"type\": \"string\" },\r",
+											"    \"estado\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"proObtDiasGraciaICMora\": { \"type\": \"string\" },\r",
+											"    \"C6268\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"subtipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"C6267\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMora\": { \"type\": \"string\" },\r",
+											"    \"C6269\": { \"type\": \"string\" },\r",
+											"    \"C6824\": { \"type\": \"integer\" },\r",
+											"    \"cambioRubro\": { \"type\": \"integer\" },\r",
+											"    \"C6271\": { \"type\": \"integer\" },\r",
+											"    \"C8175\": { \"type\": \"integer\" },\r",
+											"    \"C6273\": { \"type\": \"integer\" },\r",
+											"    \"opCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"C6272\": { \"type\": \"integer\" },\r",
+											"    \"C16617\": { \"type\": \"string\" },\r",
+											"    \"C6274\": { \"type\": \"string\" },\r",
+											"    \"C16618\": { \"type\": \"integer\" },\r",
+											"    \"C6277\": { \"type\": \"integer\" },\r",
+											"    \"C3361\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"algoritmoPago\": { \"type\": \"integer\" },\r",
+											"    \"tipoCredito\": { \"type\": \"string\" },\r",
+											"    \"moraEntramos\": { \"type\": \"string\" },\r",
+											"    \"cuotasNoBonif\": { \"type\": \"integer\" },\r",
+											"    \"hisCancela\": { \"type\": \"integer\" },\r",
+											"    \"C6279\": { \"type\": \"string\" },\r",
+											"    \"C6278\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoDepCancelados\": { \"type\": \"integer\" },\r",
+											"    \"C39997\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAtraso\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"C6283\": { \"type\": \"integer\" },\r",
+											"    \"C6288\": { \"type\": \"integer\" },\r",
+											"    \"C6287\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAdelanto\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"prodComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6805\": { \"type\": \"string\" },\r",
+											"    \"hisDepura\": { \"type\": \"integer\" },\r",
+											"    \"diasGraciaCobroICMora\": { \"type\": \"integer\" },\r",
+											"    \"tipoRecuperacion\": { \"type\":[\"string\", \"null\"] },\r",
+											"    \"C6800\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMultaMora\": { \"type\": \"string\" },\r",
+											"    \"C6251\": { \"type\": \"string\" },\r",
+											"    \"calculoICMora\": { \"type\": \"string\" },\r",
+											"    \"C6253\": { \"type\": \"string\" },\r",
+											"    \"C6252\": { \"type\": \"integer\" },\r",
+											"    \"C6255\": { \"type\": \"integer\" },\r",
+											"    \"codProductoComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6254\": { \"type\": \"string\" },\r",
+											"    \"tipoDPF\": { \"type\": \"string\" },\r",
+											"    \"tipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"evaluaDeuda\": { \"type\": \"string\" },\r",
+											"    \"C6257\": { \"type\": \"string\" },\r",
+											"    \"C6256\": { \"type\": \"string\" },\r",
+											"    \"C6259\": { \"type\": \"string\" },\r",
+											"    \"C6258\": { \"type\": \"string\" },\r",
+											"    \"C6260\": { \"type\": \"string\" },\r",
+											"    \"C6262\": { \"type\": \"string\" },\r",
+											"    \"proDiasGraciaMultaMora\": { \"type\": \"integer\" },\r",
+											"    \"C6261\": { \"type\": \"string\" },\r",
+											"    \"impuestoTasa\": { \"type\": \"integer\" },\r",
+											"    \"C6264\": { \"type\": \"integer\" },\r",
+											"    \"C6263\": { \"type\": \"string\" },\r",
+											"    \"tipoDesgravamen\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"C6265\": { \"type\": \"string\" },\r",
+											"    \"hisPeriodoDepEnvejecimiento\": { \"type\": \"integer\" },\r",
+											"    \"idProducto\": { \"type\": \"integer\" },\r",
+											"    \"periodoLegalEstcta\": { \"type\": \"string\" }\r",
+											"  },\r",
+											"  \"required\": [\r",
+											"      \"C6826\",\r",
+											"  \"C6825\",\r",
+											"  \"tipo\",\r",
+											"  \"estado\",\r",
+											"  \"proObtDiasGraciaICMora\",\r",
+											"  \"C6268\",\r",
+											"  \"subtipoGarantia\",\r",
+											"  \"C6267\",\r",
+											"  \"proObtDiasGraciaMora\",\r",
+											"  \"C6269\",\r",
+											"  \"C6824\",\r",
+											"  \"cambioRubro\",\r",
+											"  \"C6271\",\r",
+											"  \"C8175\",\r",
+											"  \"C6273\",\r",
+											"  \"opCancelacion\",\r",
+											"  \"C6272\",\r",
+											"  \"C16617\",\r",
+											"  \"C6274\",\r",
+											"  \"C16618\",\r",
+											"  \"C6277\",\r",
+											"  \"C3361\",\r",
+											"  \"algoritmoPago\",\r",
+											"  \"tipoCredito\",\r",
+											"  \"moraEntramos\",\r",
+											"  \"cuotasNoBonif\",\r",
+											"  \"hisCancela\",\r",
+											"  \"C6279\",\r",
+											"  \"C6278\",\r",
+											"  \"hisPeriodoDepCancelados\",\r",
+											"  \"C39997\",\r",
+											"  \"topeDiasAtraso\",\r",
+											"  \"C6283\",\r",
+											"  \"C6288\",\r",
+											"  \"C6287\",\r",
+											"  \"hisPeriodoCancelacion\",\r",
+											"  \"topeDiasAdelanto\",\r",
+											"  \"prodComercial\",\r",
+											"  \"C6805\",\r",
+											"  \"hisDepura\",\r",
+											"  \"diasGraciaCobroICMora\",\r",
+											"  \"tipoRecuperacion\",\r",
+											"  \"C6800\",\r",
+											"  \"proObtDiasGraciaMultaMora\",\r",
+											"  \"C6251\",\r",
+											"  \"calculoICMora\",\r",
+											"  \"C6253\",\r",
+											"  \"C6252\",\r",
+											"  \"C6255\",\r",
+											"  \"codProductoComercial\",\r",
+											"  \"C6254\",\r",
+											"  \"tipoDPF\",\r",
+											"  \"tipoGarantia\",\r",
+											"  \"evaluaDeuda\",\r",
+											"  \"C6257\",\r",
+											"  \"C6256\",\r",
+											"  \"C6259\",\r",
+											"  \"C6258\",\r",
+											"  \"C6260\",\r",
+											"  \"C6262\",\r",
+											"  \"proDiasGraciaMultaMora\",\r",
+											"  \"C6261\",\r",
+											"  \"impuestoTasa\",\r",
+											"  \"C6264\",\r",
+											"  \"C6263\",\r",
+											"  \"tipoDesgravamen\",\r",
+											"  \"C6265\",\r",
+											"  \"hisPeriodoDepEnvejecimiento\",\r",
+											"  \"idProducto\",\r",
+											"  \"periodoLegalEstcta\"\r",
+											"      ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"idProducto\" : 88031\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/productos/obtenerDatosProductoxID",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"productos",
+										"obtenerDatosProductoxID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-obtenerDatosProductoxID Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"var ddtEnabled = pm.environment.get(\"ddtEnabled\");\r",
+											"if ( ddtEnabled !== false){\r",
+											"    var producto = pm.environment.get(\"productoID\");\r",
+											"    var descripcionProductoInResponse = pm.environment.get(\"descripcionProducto\");\r",
+											"\r",
+											"    pm.test(\"Verify descripcion llamando a la API con producto: \"+producto+\".  Descripcion de respuesta debe ser: \"+descripcionProductoInResponse, function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.opciones[0].payload).to.eql(resultado.toString());\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"Verify idProducto llamando a la API con producto: \"+producto+\".  idProducto de respuesta debe ser: \"+descripcionProductoInResponse, function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.opciones[0].payload).to.eql(resultado.toString());\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"//validar esquema\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"    \"C6826\": { \"type\": \"string\" },\r",
+											"    \"C6825\": { \"type\": \"string\" },\r",
+											"    \"tipo\": { \"type\": \"string\" },\r",
+											"    \"estado\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"proObtDiasGraciaICMora\": { \"type\": \"string\" },\r",
+											"    \"C6268\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"subtipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"C6267\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMora\": { \"type\": \"string\" },\r",
+											"    \"C6269\": { \"type\": \"string\" },\r",
+											"    \"C6824\": { \"type\": \"integer\" },\r",
+											"    \"cambioRubro\": { \"type\": \"integer\" },\r",
+											"    \"C6271\": { \"type\": \"integer\" },\r",
+											"    \"C8175\": { \"type\": \"integer\" },\r",
+											"    \"C6273\": { \"type\": \"integer\" },\r",
+											"    \"opCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"C6272\": { \"type\": \"integer\" },\r",
+											"    \"C16617\": { \"type\": \"string\" },\r",
+											"    \"C6274\": { \"type\": \"string\" },\r",
+											"    \"C16618\": { \"type\": \"integer\" },\r",
+											"    \"C6277\": { \"type\": \"integer\" },\r",
+											"    \"C3361\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"algoritmoPago\": { \"type\": \"integer\" },\r",
+											"    \"tipoCredito\": { \"type\": \"string\" },\r",
+											"    \"moraEntramos\": { \"type\": \"string\" },\r",
+											"    \"cuotasNoBonif\": { \"type\": \"integer\" },\r",
+											"    \"hisCancela\": { \"type\": \"integer\" },\r",
+											"    \"C6279\": { \"type\": \"string\" },\r",
+											"    \"C6278\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoDepCancelados\": { \"type\": \"integer\" },\r",
+											"    \"C39997\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAtraso\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"C6283\": { \"type\": \"integer\" },\r",
+											"    \"C6288\": { \"type\": \"integer\" },\r",
+											"    \"C6287\": { \"type\": \"integer\" },\r",
+											"    \"hisPeriodoCancelacion\": { \"type\": \"integer\" },\r",
+											"    \"topeDiasAdelanto\": { \"type\": [\"integer\", \"null\"] },\r",
+											"    \"prodComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6805\": { \"type\": \"string\" },\r",
+											"    \"hisDepura\": { \"type\": \"integer\" },\r",
+											"    \"diasGraciaCobroICMora\": { \"type\": \"integer\" },\r",
+											"    \"tipoRecuperacion\": { \"type\":[\"string\", \"null\"] },\r",
+											"    \"C6800\": { \"type\": \"string\" },\r",
+											"    \"proObtDiasGraciaMultaMora\": { \"type\": \"string\" },\r",
+											"    \"C6251\": { \"type\": \"string\" },\r",
+											"    \"calculoICMora\": { \"type\": \"string\" },\r",
+											"    \"C6253\": { \"type\": \"string\" },\r",
+											"    \"C6252\": { \"type\": \"integer\" },\r",
+											"    \"C6255\": { \"type\": \"integer\" },\r",
+											"    \"codProductoComercial\": { \"type\": \"integer\" },\r",
+											"    \"C6254\": { \"type\": \"string\" },\r",
+											"    \"tipoDPF\": { \"type\": \"string\" },\r",
+											"    \"tipoGarantia\": { \"type\": \"integer\" },\r",
+											"    \"evaluaDeuda\": { \"type\": \"string\" },\r",
+											"    \"C6257\": { \"type\": \"string\" },\r",
+											"    \"C6256\": { \"type\": \"string\" },\r",
+											"    \"C6259\": { \"type\": \"string\" },\r",
+											"    \"C6258\": { \"type\": \"string\" },\r",
+											"    \"C6260\": { \"type\": \"string\" },\r",
+											"    \"C6262\": { \"type\": \"string\" },\r",
+											"    \"proDiasGraciaMultaMora\": { \"type\": \"integer\" },\r",
+											"    \"C6261\": { \"type\": \"string\" },\r",
+											"    \"impuestoTasa\": { \"type\": \"integer\" },\r",
+											"    \"C6264\": { \"type\": \"integer\" },\r",
+											"    \"C6263\": { \"type\": \"string\" },\r",
+											"    \"tipoDesgravamen\": { \"type\": [\"string\", \"null\"] },\r",
+											"    \"C6265\": { \"type\": \"string\" },\r",
+											"    \"hisPeriodoDepEnvejecimiento\": { \"type\": \"integer\" },\r",
+											"    \"idProducto\": { \"type\": \"integer\" },\r",
+											"    \"periodoLegalEstcta\": { \"type\": \"string\" }\r",
+											"  },\r",
+											"  \"required\": [\r",
+											"      \"C6826\",\r",
+											"  \"C6825\",\r",
+											"  \"tipo\",\r",
+											"  \"estado\",\r",
+											"  \"proObtDiasGraciaICMora\",\r",
+											"  \"C6268\",\r",
+											"  \"subtipoGarantia\",\r",
+											"  \"C6267\",\r",
+											"  \"proObtDiasGraciaMora\",\r",
+											"  \"C6269\",\r",
+											"  \"C6824\",\r",
+											"  \"cambioRubro\",\r",
+											"  \"C6271\",\r",
+											"  \"C8175\",\r",
+											"  \"C6273\",\r",
+											"  \"opCancelacion\",\r",
+											"  \"C6272\",\r",
+											"  \"C16617\",\r",
+											"  \"C6274\",\r",
+											"  \"C16618\",\r",
+											"  \"C6277\",\r",
+											"  \"C3361\",\r",
+											"  \"algoritmoPago\",\r",
+											"  \"tipoCredito\",\r",
+											"  \"moraEntramos\",\r",
+											"  \"cuotasNoBonif\",\r",
+											"  \"hisCancela\",\r",
+											"  \"C6279\",\r",
+											"  \"C6278\",\r",
+											"  \"hisPeriodoDepCancelados\",\r",
+											"  \"C39997\",\r",
+											"  \"topeDiasAtraso\",\r",
+											"  \"C6283\",\r",
+											"  \"C6288\",\r",
+											"  \"C6287\",\r",
+											"  \"hisPeriodoCancelacion\",\r",
+											"  \"topeDiasAdelanto\",\r",
+											"  \"prodComercial\",\r",
+											"  \"C6805\",\r",
+											"  \"hisDepura\",\r",
+											"  \"diasGraciaCobroICMora\",\r",
+											"  \"tipoRecuperacion\",\r",
+											"  \"C6800\",\r",
+											"  \"proObtDiasGraciaMultaMora\",\r",
+											"  \"C6251\",\r",
+											"  \"calculoICMora\",\r",
+											"  \"C6253\",\r",
+											"  \"C6252\",\r",
+											"  \"C6255\",\r",
+											"  \"codProductoComercial\",\r",
+											"  \"C6254\",\r",
+											"  \"tipoDPF\",\r",
+											"  \"tipoGarantia\",\r",
+											"  \"evaluaDeuda\",\r",
+											"  \"C6257\",\r",
+											"  \"C6256\",\r",
+											"  \"C6259\",\r",
+											"  \"C6258\",\r",
+											"  \"C6260\",\r",
+											"  \"C6262\",\r",
+											"  \"proDiasGraciaMultaMora\",\r",
+											"  \"C6261\",\r",
+											"  \"impuestoTasa\",\r",
+											"  \"C6264\",\r",
+											"  \"C6263\",\r",
+											"  \"tipoDesgravamen\",\r",
+											"  \"C6265\",\r",
+											"  \"hisPeriodoDepEnvejecimiento\",\r",
+											"  \"idProducto\",\r",
+											"  \"periodoLegalEstcta\"\r",
+											"      ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"idProducto\" : 88031\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/productos/obtenerDatosProductoxID",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"productos",
+										"obtenerDatosProductoxID"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "saldos",
+					"item": [
+						{
+							"name": "QWS-obtenerBloqueosXJTSOID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"saldoJtsOID\" : 1573657\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/saldos/obtenerBloqueosXJTSOID",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"saldos",
+										"obtenerBloqueosXJTSOID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-obtenerBloqueosXJTSOID NEGATIVE",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"saldoJtsOID\" : 1573657\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/saldos/obtenerBloqueosXJTSOID",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"saldos",
+										"obtenerBloqueosXJTSOID"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-obtenerDatosCodBloqueoxID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"codBloqueo\" : 25\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/saldos/obtenerDatosCodBloqueoxID",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"saldos",
+										"obtenerDatosCodBloqueoxID"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "firmas",
+					"item": [
+						{
+							"name": "QWS-exisisteCombinacion",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/firmas/existeCombinacion?cuenta=1310412499&importe=500&cuentaDos=1310412499",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"firmas",
+										"existeCombinacion"
+									],
+									"query": [
+										{
+											"key": "cuenta",
+											"value": "1310412499"
+										},
+										{
+											"key": "importe",
+											"value": "500"
+										},
+										{
+											"key": "cuentaDos",
+											"value": "1310412499"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-obtenerFirmasPorCuenta",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"cuenta\" : 1041063560\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/firmas/obtenerFirmasPorCuenta",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"firmas",
+										"obtenerFirmasPorCuenta"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-obtenerNroFirmas",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"cuenta\" : 1041063560,\r\n\"numeroPersona\" : 50123\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/firmas/obtenerNroFirmas",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"firmas",
+										"obtenerNroFirmas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-cuentasPorFirmante",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"array\",\r",
+											"  \"items\": [\r",
+											"      {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\":{\r",
+											"        \"jtsOId\": { \"type\": \"integer\" },\r",
+											"        \"cuenta\": { \"type\": \"integer\" },\r",
+											"        },\r",
+											"        \"required\": [\"jtsOId\", \"cuenta\"],\r",
+											"  }\r",
+											"  ],\r",
+											"  \"additionalProperties\": false\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"numeroPersona\" : 805437\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/firmas/cuentasPorFirmante",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"firmas",
+										"cuentasPorFirmante"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lealtad",
+					"item": [
+						{
+							"name": "QWS-getSuscripcionesPorPersona",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"codigoCliente\" : 11842742,\r\n\"codigoPrograma\" : 1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/lealtad/getSuscripcionPorProgramaPorPersona",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"lealtad",
+										"getSuscripcionPorProgramaPorPersona"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-postSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Topaz-User",
+										"value": "TOP1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Branch",
+										"value": "701",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Company",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Channel",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Transaction-ID",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idPrograma\": 1,\r\n  \"estado\": \"A\",\r\n  \"codPersonaCliente\": 11842742,\r\n  \"fechaInicio\": \"2022-05-31\",\r\n  \"tipoPersonaCliente\": \"C\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/lealtad/postSuscrito",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"lealtad",
+										"postSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-putSuscrito",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Topaz-User",
+										"value": "TOP1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Branch",
+										"value": "701",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Company",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Channel",
+										"value": "1",
+										"type": "text"
+									},
+									{
+										"key": "Topaz-Transaction-ID",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"estado\": \"Z\",\r\n\"idSuscrito\": 82\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/lealtad/putSuscrito",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"lealtad",
+										"putSuscrito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-getCabeceraComprobanteXid",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"id\" : 11212\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/lealtad/getCabeceraComprobanteXid",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"lealtad",
+										"getCabeceraComprobanteXid"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "QWS-getDetalleComprobanteXid",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var URI = pm.environment.get(\"QWS_URL_TESTING\") + pm.environment.get(\"REQUEST_TOKEN_BUILDER\")\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: URI,\r",
+											"    method: 'GET',\r",
+											"    header: {\r",
+											"        \"Authorization\": \"Basic \" + \"dG9wMTpzeXN0ZW1zMQ==\",\r",
+											"        \"Accept\": \"application/json\",\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"}, (error, response) => {\r",
+											"    if (error) {\r",
+											"        console.log(error);\r",
+											"    } \r",
+											"    pm.test('tokenbuiled response status code should be 200', () => {\r",
+											"        pm.expect(response).to.have.property('code', 200);\r",
+											"    }); \r",
+											"    pm.environment.set(\"TOKEN\", response.json().token);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"id\" : 1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/lealtad/getDetalleComprobanteXid",
+									"host": [
+										"{{QWS_URL_TESTING}}"
+									],
+									"path": [
+										"topazinterpretedws",
+										"lealtad",
+										"getDetalleComprobanteXid"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tokenbuilder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token = pm.response.json().token;\r",
+							"pm.environment.set(\"TOKEN\", token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "systems1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "top1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{QWS_URL_TESTING}}/topazinterpretedws/tokenbuilder",
+					"host": [
+						"{{QWS_URL_TESTING}}"
+					],
+					"path": [
+						"topazinterpretedws",
+						"tokenbuilder"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
