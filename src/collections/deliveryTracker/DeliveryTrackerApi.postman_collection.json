@@ -1,0 +1,890 @@
+{
+	"info": {
+		"_postman_id": "c13d8590-aa9f-413a-a220-47f70c71781c",
+		"name": "DeliveryTrackerApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6052513"
+	},
+	"item": [
+		{
+			"name": "Delivery",
+			"item": [
+				{
+					"name": "StartDelivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\":7,\r\n    \"riderId\":9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Delivery/start",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Delivery",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShareDelivery",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Delivery/share?orderId=3",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Delivery",
+								"share"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FinishDelivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\":\"4e8630dd-bfac-413c-8d30-cb935144b335\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Delivery/finish",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Delivery",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetInfoToken",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Delivery/infoToken?token=6b8c0ba8-74f9-4097-8003-1000dfdc5ce3",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Delivery",
+								"infoToken"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "6b8c0ba8-74f9-4097-8003-1000dfdc5ce3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Delivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"description\":\"Por Que m da la peregrina gana\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Delivery/cancell",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Delivery",
+								"cancell"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Integration",
+					"item": [
+						{
+							"name": "1019 - Get Orders - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"  });\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=0&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "0"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1023 - Get orders with no brandStoreIdFk - Negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check error message\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Consulta no esta completa.\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": { \"type\": \"string\" },\r",
+											"        \"message\":{ \"type\": \"string\"}\r",
+											"  },\r",
+											"        \"required\": [\r",
+											"                \"status\",\r",
+											"                \"data\",\r",
+											"                \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?orderStatus=0&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "orderStatus",
+											"value": "0"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WebHook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\":10981,\r\n   \"status\":\"pending\",\r\n   \"currency\":\"BOB\",\r\n   \"version\":\"5.8.0\",\r\n   \"total\":\"666.00\",\r\n   \"customer_id\":10,\r\n   \"order_key\":\"wc_order_yvrMwRMrhw0XH\",\r\n   \"billing\":{\r\n      \"company\":\"ASATOS PORK\",\r\n      \"address_1\":\"av. Alemania 5to anillo c/ toborochi N. 4565\",\r\n      \"email\":\"lord.hist@gmail.com\",\r\n      \"phone\":\"60032945\"\r\n   },\r\n   \"payment_method\":\"\",\r\n   \"created_via\":\"checkout\",\r\n   \"customer_note\":\"Av siempre viva 746\",\r\n   \"number\":\"1097\",\r\n   \"meta_data\":[\r\n      {\r\n         \"id\":215017,\r\n         \"key\":\"billing_lat\",\r\n         \"value\":\"-17.7766\"\r\n      },\r\n      {\r\n         \"id\":215018,\r\n         \"key\":\"billing_long\",\r\n         \"value\":\"-63.1799\"\r\n      },\r\n      {\r\n         \"id\":215019,\r\n         \"key\":\"billing_nit\",\r\n         \"value\":\"7819961014\"\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/WordersHook",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"WordersHook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"total\":150,\r\n    \"taxPayerNumber_Billing\":\"11394366\",\r\n    \"businessName_Billing\":\"razon social de la Factura SRL\",\r\n    \"address_Billing\":\"Av siempre viva\",\r\n    \"email_Billing\":\"correo@correo.com\",\r\n    \"latitude\":\"-17.7920236\",\r\n    \"longitude\":\"-63.1827743\",\r\n    \"phone_Billing\":\"69178351\",\r\n    \"note\":\"esta es una nota\",\r\n    \"deliveryPrice\": 50,\r\n    \"branchStoreIdFk\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Orders/create",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Orders",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=0&filter=&page=1&perPage=50",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Orders"
+							],
+							"query": [
+								{
+									"key": "branchStoreIdFk",
+									"value": "1"
+								},
+								{
+									"key": "orderStatus",
+									"value": "0"
+								},
+								{
+									"key": "filter",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOrdes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"id\":28,\r\n    \"total\":134,\r\n    \"taxPayerNumber_Billing\":\"Alvaro Valdivia\",\r\n    \"businessName_Billing\":\"razon social de la Factura SRL4\",\r\n    \"address_Billing\":\"Av siempre viva4\",\r\n    \"email_Billing\":\"correo@correo.com4\",\r\n    \"latitude\":\"-17.79202364\",\r\n    \"longitude\":\"-63.1827744\",\r\n    \"phone_Billing\":\"69178352\",\r\n    \"note\":\"esta es una nota 2\",\r\n    \"deliveryPrice\": 15,\r\n    \"branchStoreIdFk\":1,\r\n    \"orderStatus\": 3\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stagging}}/Orders/update",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Orders",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rider",
+			"item": [
+				{
+					"name": "CreateRider",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyIdFk\":1,\r\n    \"docNumber\":\"155468445\",\r\n    \"complement\":\"\",\r\n    \"extension\":\"SC\",\r\n    \"firstName\":\"Gintoki\",\r\n    \"lastName\":\"Sakata\",\r\n    \"nationality\":\"Bolivia\",\r\n    \"phone\": \"+59169178351\",\r\n    \"licensePlate\":\"1990TCU\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/Riders/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"Riders",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Riders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Riders?companyId=1",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Riders"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "1"
+								},
+								{
+									"key": "filter",
+									"value": "Guerr",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Riders",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"docNumber\": \"852\",\r\n\"extension\": \"CB\",    \r\n\"firstName\": \"bart\",\r\n\"lastName\": \"simpson\",\r\n\"nationality\": \"Boliviana\",\r\n\"phone\": \"7512\",\r\n\"licensePlate\": \"456ukp\",\r\n\"companyIdFk\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/Rider/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"Rider",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Riders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Riders/idle?page=1&perPage=5&companyId=1",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Riders",
+								"idle"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "5"
+								},
+								{
+									"key": "companyId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Merchant",
+			"item": [
+				{
+					"name": "Merchants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Merchants?filter=xxx&page=1&perPage=5",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Merchants"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "xxx"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Merchant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Merchants",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/merchant/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchant",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BranchStore",
+			"item": [
+				{
+					"name": "BranchStores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DeliveryTracker}}/BranchStores?merchantIdFk=1&filter=xxx&page=1&perPage=5",
+							"host": [
+								"{{DeliveryTracker}}"
+							],
+							"path": [
+								"BranchStores"
+							],
+							"query": [
+								{
+									"key": "merchantIdFk",
+									"value": "1"
+								},
+								{
+									"key": "filter",
+									"value": "xxx"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update BranchStores",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "/BranchStores/update",
+							"path": [
+								"BranchStores",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stagging}}/Companies?companyIdFk=&filter=&page=&perPage=",
+							"host": [
+								"{{stagging}}"
+							],
+							"path": [
+								"Companies"
+							],
+							"query": [
+								{
+									"key": "companyIdFk",
+									"value": ""
+								},
+								{
+									"key": "filter",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": ""
+								},
+								{
+									"key": "perPage",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "get Total Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/reportMerchants?page=1&perPage=5&initialDate='2022-08-01'&finalDate='2022-10-010'",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"reportMerchants"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "5"
+								},
+								{
+									"key": "initialDate",
+									"value": "'2022-08-01'"
+								},
+								{
+									"key": "finalDate",
+									"value": "'2022-10-010'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get branchstore Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
