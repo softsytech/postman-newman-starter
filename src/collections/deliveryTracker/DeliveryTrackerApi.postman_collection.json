@@ -412,6 +412,1252 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "1024 - Get orders with brandStoreIdFk that does not exist - Negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check orders related to store does not exist\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"No hay errores\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=999&orderStatus=0&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "999"
+										},
+										{
+											"key": "orderStatus",
+											"value": "0"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1025- Get orders when orderStatus 0 - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=0&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "0"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1026- Get orders when orderStatus 1 - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const POST_options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"  pm.sendRequest(POST_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"Post jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"        let orderId1 = data.data[0].id;\r",
+											"        console.log(\"Post orderId es: \", orderId1);\r",
+											"\r",
+											"        const PUT_options = {\r",
+											"            url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"            method: 'PUT',\r",
+											"            header: {\r",
+											"                'Content-type': 'application/json',\r",
+											"                'Accept': '*/*',\r",
+											"            },\r",
+											"            body: {\r",
+											"                mode: 'raw',\r",
+											"                raw: JSON.stringify(\r",
+											"                    {\r",
+											"                        \"id\": orderId1,\r",
+											"                        \"orderStatus\": 1\r",
+											"                    }\r",
+											"                )\r",
+											"            }\r",
+											"        };\r",
+											"\r",
+											"        pm.sendRequest(PUT_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"PUT jsonData es: \", data);\r",
+											"  });\r",
+											"  });\r",
+											"\r",
+											"  \r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=1&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1027- Get orders when orderStatus 2 - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const POST_options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"  pm.sendRequest(POST_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"Post jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"        let orderId1 = data.data[0].id;\r",
+											"        console.log(\"Post orderId es: \", orderId1);\r",
+											"\r",
+											"        const PUT_options = {\r",
+											"            url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"            method: 'PUT',\r",
+											"            header: {\r",
+											"                'Content-type': 'application/json',\r",
+											"                'Accept': '*/*',\r",
+											"            },\r",
+											"            body: {\r",
+											"                mode: 'raw',\r",
+											"                raw: JSON.stringify(\r",
+											"                    {\r",
+											"                        \"id\": orderId1,\r",
+											"                        \"orderStatus\": 2\r",
+											"                    }\r",
+											"                )\r",
+											"            }\r",
+											"        };\r",
+											"\r",
+											"        pm.sendRequest(PUT_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"PUT jsonData es: \", data);\r",
+											"  });\r",
+											"  });\r",
+											"\r",
+											"  \r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=2&filter=&page=1&perPage=50",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "2"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1028- Get orders when orderStatus 3 - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const POST_options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"  pm.sendRequest(POST_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"Post jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"        let orderId1 = data.data[0].id;\r",
+											"        console.log(\"Post orderId es: \", orderId1);\r",
+											"\r",
+											"        const PUT_options = {\r",
+											"            url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"            method: 'PUT',\r",
+											"            header: {\r",
+											"                'Content-type': 'application/json',\r",
+											"                'Accept': '*/*',\r",
+											"            },\r",
+											"            body: {\r",
+											"                mode: 'raw',\r",
+											"                raw: JSON.stringify(\r",
+											"                    {\r",
+											"                        \"id\": orderId1,\r",
+											"                        \"orderStatus\": 3\r",
+											"                    }\r",
+											"                )\r",
+											"            }\r",
+											"        };\r",
+											"\r",
+											"        pm.sendRequest(PUT_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"PUT jsonData es: \", data);\r",
+											"  });\r",
+											"  });\r",
+											"\r",
+											"  \r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=3&filter=&page=1&perPage=150",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "3"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "150"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1029- Get orders when perPage is 1 - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const POST_options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"  pm.sendRequest(POST_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"Post jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"        let orderId1 = data.data[0].id;\r",
+											"        console.log(\"Post orderId es: \", orderId1);\r",
+											"\r",
+											"        const PUT_options = {\r",
+											"            url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"            method: 'PUT',\r",
+											"            header: {\r",
+											"                'Content-type': 'application/json',\r",
+											"                'Accept': '*/*',\r",
+											"            },\r",
+											"            body: {\r",
+											"                mode: 'raw',\r",
+											"                raw: JSON.stringify(\r",
+											"                    {\r",
+											"                        \"id\": orderId1,\r",
+											"                        \"orderStatus\": 3\r",
+											"                    }\r",
+											"                )\r",
+											"            }\r",
+											"        };\r",
+											"\r",
+											"        pm.sendRequest(PUT_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"PUT jsonData es: \", data);\r",
+											"  });\r",
+											"  });\r",
+											"\r",
+											"  \r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=3&filter=&page=1&perPage=150",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "3"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "150"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1030- Get orders when there is no orders with the status sent - Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check exist an order at least\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"8911507\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"Alvaro Salvador Valdivia Calizaya\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"        \"status\": { \"type\": \"integer\" },\r",
+											"        \"data\": {\r",
+											"             \"type\": \"object\", \r",
+											"             \"properties\":{\r",
+											"                \"TotalRecords\": {\"type\": \"integer\"},\r",
+											"                \"TotalPages\": {\"type\": \"integer\"},\r",
+											"                \"Page\": {\"type\": \"integer\"},\r",
+											"                \"PerPage\": {\"type\": \"integer\"},\r",
+											"                \"Records\": {\"type\": \"array\"},\r",
+											"             },\r",
+											"            \"required\": [\r",
+											"                \"TotalRecords\",\r",
+											"                \"TotalPages\",\r",
+											"                \"Page\",\r",
+											"                \"PerPage\",\r",
+											"                \"Records\"\r",
+											"                ],\r",
+											"             },\r",
+											"        \"message\": { \"type\": \"string\" }\r",
+											"        },\r",
+											"        \"required\": [\r",
+											"            \"status\",\r",
+											"            \"data\",\r",
+											"            \"message\"\r",
+											"        ],\"additionalProperties\": false            \r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"const options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"      method: 'PUT',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"id\": pm.environment.get(\"orderId\"),\r",
+											"                \"orderStatus\": 3\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"  pm.sendRequest(options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"jsonData es: \", data);\r",
+											"  });\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const POST_options = {\r",
+											"      url:  pm.environment.get(\"stagging\")+\"/Orders/create\", \r",
+											"      method: 'POST',\r",
+											"      header: {\r",
+											"        'Content-type': 'application/json',\r",
+											"        'Accept': '*/*',\r",
+											"      },\r",
+											"      body: {\r",
+											"          mode: 'raw',\r",
+											"          raw: JSON.stringify(\r",
+											"              {\r",
+											"                \"total\":150,\r",
+											"                \"taxPayerNumber_Billing\":\"8911507\",\r",
+											"                \"businessName_Billing\":\"Alvaro Salvador Valdivia Calizaya\",\r",
+											"                \"address_Billing\":\"Av siempre viva\",\r",
+											"                \"email_Billing\":\"correo@correo.com\",\r",
+											"                \"latitude\":\"-17.7920236\",\r",
+											"                \"longitude\":\"-63.1827743\",\r",
+											"                \"phone_Billing\":\"69178351\",\r",
+											"                \"note\":\"esta es una nota\",\r",
+											"                \"deliveryPrice\": 50,\r",
+											"                \"branchStoreIdFk\":1\r",
+											"              }\r",
+											"          )\r",
+											"      }\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"  pm.sendRequest(POST_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"Post jsonData es: \", data);\r",
+											"        pm.environment.set(\"orderId\", data.data[0].id);\r",
+											"        let orderId1 = data.data[0].id;\r",
+											"        console.log(\"Post orderId es: \", orderId1);\r",
+											"\r",
+											"        const PUT_options = {\r",
+											"            url:  pm.environment.get(\"stagging\")+\"/Orders/update\", \r",
+											"            method: 'PUT',\r",
+											"            header: {\r",
+											"                'Content-type': 'application/json',\r",
+											"                'Accept': '*/*',\r",
+											"            },\r",
+											"            body: {\r",
+											"                mode: 'raw',\r",
+											"                raw: JSON.stringify(\r",
+											"                    {\r",
+											"                        \"id\": orderId1,\r",
+											"                        \"orderStatus\": 3\r",
+											"                    }\r",
+											"                )\r",
+											"            }\r",
+											"        };\r",
+											"\r",
+											"        pm.sendRequest(PUT_options, function (err, res) {\r",
+											"        var data = res.json();\r",
+											"        console.log(\"PUT jsonData es: \", data);\r",
+											"  });\r",
+											"  });\r",
+											"\r",
+											"  \r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=3&filter=&page=1&perPage=150",
+									"host": [
+										"{{stagging}}"
+									],
+									"path": [
+										"Orders"
+									],
+									"query": [
+										{
+											"key": "branchStoreIdFk",
+											"value": "1"
+										},
+										{
+											"key": "orderStatus",
+											"value": "3"
+										},
+										{
+											"key": "filter",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "150"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -486,7 +1732,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=0&filter=&page=1&perPage=50",
+							"raw": "{{stagging}}/Orders?branchStoreIdFk=1&orderStatus=1&filter=&page=1&perPage=50",
 							"host": [
 								"{{stagging}}"
 							],
@@ -500,7 +1746,7 @@
 								},
 								{
 									"key": "orderStatus",
-									"value": "0"
+									"value": "1"
 								},
 								{
 									"key": "filter",
