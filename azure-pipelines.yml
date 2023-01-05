@@ -23,3 +23,11 @@ steps:
 - script: |
     npm test
   displayName: 'npm test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/REPORT-*.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)\newman'
+    mergeTestResults: true
+    testRunTitle: 'Reporting'
