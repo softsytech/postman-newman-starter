@@ -4,7 +4,7 @@ import newman from 'newman'; // require Newman in your project
 newman.run({
     collection: require('./collections/deliveryTracker/DeliveryTrackerApi.postman_collection.json'),
     environment: require('./collections/deliveryTracker/DeliveryTracker.postman_environment.json'),
-    folder: 'Integration',
+    folder: 'Test',
     reporters: 'htmlextra',
 }, function (err) {
     if (err) { throw err; }
