@@ -27,7 +27,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/REPORT-*.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)\newman'
+    testResultsFiles: '**/report-*.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)\newman\*.xml'
     mergeTestResults: true
     testRunTitle: 'Reporting'
