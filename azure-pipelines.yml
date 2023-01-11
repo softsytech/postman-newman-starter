@@ -31,5 +31,5 @@ steps:
     testResultsFiles: '**/newman-*.xml'
 - task: UploadPostmanHtmlReport@1
   inputs:
-    cwd: '$(System.DefaultWorkingDirectory)'
+    cwd: '$(System.DefaultWorkingDirectory)/newman'
     tabName: 'Postman Html Report'
