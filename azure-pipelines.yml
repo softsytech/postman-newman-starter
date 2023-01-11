@@ -18,6 +18,7 @@ steps:
 - script: |
     npm install
     npm install newman
+    npm install -g newman-reporter-htmlextra
   displayName: 'npm install'
 
 - script: |
@@ -28,7 +29,3 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-*.xml'
-- task: PublishHtmlReport@1
-  displayName: 'HTML report'
-  inputs:
-    reportDir: 'newman/DeliveryTrackerApi-*.html'
