@@ -28,3 +28,7 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-*.xml'
+- task: PublishHtmlReport@1
+  displayName: 'HTML report'
+  inputs:
+    reportDir: '$(System.DefaultWorkingDirectory)/*.html'
