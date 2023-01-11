@@ -31,4 +31,4 @@ steps:
 - task: PublishHtmlReport@1
   displayName: 'HTML report'
   inputs:
-    reportDir: '$(System.DefaultWorkingDirectory)/*.html'
+    reportDir: '**/DeliveryTrackerApi-*.html'
