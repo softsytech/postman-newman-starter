@@ -29,3 +29,7 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/newman-*.xml'
+- task: UploadPostmanHtmlReport@1
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)/newman/*.html'
+    tabName: 'Postman Html Report'
