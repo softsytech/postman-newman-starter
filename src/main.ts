@@ -5,7 +5,7 @@ newman.run({
     collection: require('./collections/deliveryTracker/DeliveryTrackerApi.postman_collection.json'),
     environment: require('./collections/deliveryTracker/DeliveryTracker.postman_environment.json'),
     folder: 'Test',
-    reporters: 'junit',
+    reporters: ['htmlextra', 'junit'],
 }, function (err) {
     if (err) { throw err; }
     console.log('collection run complete!');
